@@ -4,6 +4,7 @@
    [clojure.set :as cset]
    [clojure.java.io :as io]
    [cheshire.core :as json]
+   [clj-yaml.core :as yaml]
    [clojure.string :as str]))
 
 (defn read-json [pth]
@@ -13,6 +14,9 @@
 
 (defn to-json [m]
   (json/generate-string m {:pretty true}))
+
+(defn to-yaml [m]
+  (yaml/generate-string m))
 
 (defn from-json [s]
   (json/parse-string s keyword))

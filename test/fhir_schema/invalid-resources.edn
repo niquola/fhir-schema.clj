@@ -1,0 +1,11 @@
+[{:resource {:resourceType "Invalid"}
+  :error-paths [[]]} 
+
+ {:resource {:resourceType "Patient" :extra "field"}
+  :error-paths [[]]} 
+
+ {:resource {:resourceType "Patient" :name "string"}
+  :error-paths [[:name]]} 
+
+ {:resource {:resourceType "Patient" :name [{:extra ""}] :extra "filed"}
+  :error-paths [[] [:name 0]]}]

@@ -4,135 +4,143 @@
    [clojure.set :as cset]
    [clojure.java.io :as io]
    [cheshire.core :as json]
-   [clojure.string :as str]))
-
-(defn read-json [pth]
-  (-> (io/resource pth)
-      (slurp)
-      (json/parse-string  keyword)))
-
-(defn to-json [m]
-  (json/generate-string m {:pretty true}))
-
-(defn from-json [s]
-  (json/parse-string s keyword))
+   [fhir-schema.utils :as u]
+   [clojure.string :as str]
+   [clojure.walk :refer :all]
+   [json-schema.core :as schema]))
 
 
-(defn camelize [^String s]
-  (str (cs/upper-case (subs s 0 1)) (subs s 1 (.length s))))
+(defn- poly-type? [x] (re-seq #"\[x]" x))
 
-(defn unencode-html-entities [s]
-  (-> (cs/replace s #"&nbsp;" "&#160;")
-      (cs/replace #"&(trade|copy|sect|reg);" "$1")))
-
-
-(defn normalize-string [s]
-  (cs/replace s #"\s" ""))
-
-(def resources
-  (concat
-   (map :resource (:entry (read-json "fhir-1.6/profiles-resources.json")))
-   (map :resource (:entry (read-json "fhir-1.6/profiles-types.json")))))
-
-(into #{} (map :resourceType resources))
-
-
-(let [by-type (fn [tp] (fn [x] (= (:resourceType x) tp)))]
-  (def sd (filter (by-type "StructureDefinition") resources))
-  (def od (filter (by-type "OperationDefinition") resources))
-  (def conf (filter (by-type "Conformance") resources))
-  (def cd (filter (by-type "CompartmentDefinition") resources)))
-
-{:cd (count cd)
- :od (count od)
- :sd (count sd)
- :conf (count conf)}
-
-
-
-(defn poly-type? [x] (re-seq #"\[x]" x))
-
-(defn expand [{pth :$path :as e}]
+(defn- expand [{pth :$$path :as e}]
   (let [x (last pth)]
     (if (poly-type? (name x))
       (map (fn [tp]
-             (merge e {:$path (conj (into [] (butlast pth)) (str/replace x #"\[x\]" (camelize (:code tp))))
+             (merge e {:$$path (conj (into [] (butlast pth)) (keyword (str/replace (name x) #"\[x\]" (u/camelize (:code tp)))))
                        :type [tp]}))
            (:type e))
       [e])))
 
-(def ems* (map (fn [e] (assoc e :$path (map keyword (str/split (:path e) #"\."))))
-              (mapcat (fn [x] (get-in x [:snapshot :element])) sd)))
+(defn primitive-extensions [e]
+  (if-let [tp (get-in e [:type 0 :code])]
+    (if (re-matches #"^[a-z].*$" tp)
+      [e (merge e {:$$path (conj (into [] (butlast (:$$path e))) (keyword (str "_" (name (last (:$$path e))))))
+                   :type [{:code "Element"}]})]
+      [e])
+    [e]))
 
-(def ems (reduce (fn [acc x] (into acc (expand x))) [] ems*))
+(def ems (->>
+          (concat (map :resource (:entry (u/read-json "fhir-1.6/profiles-resources.json")))
+                  (map :resource (:entry (u/read-json "fhir-1.6/profiles-types.json"))))
+          (filter (fn [tp] (fn [x] (= (:resourceType "StructureDefinition") tp))))
+          (mapcat (fn [x] (get-in x [:snapshot :element])))
+          (map (fn [e] (assoc e :$$path (mapv keyword (str/split (:path e) #"\.")))))
+          (reduce (fn [acc x] (into acc (expand x))) [])
+          (reduce (fn [acc x] (into acc (primitive-extensions x))) [])))
 
-(def ems-idx (reduce (fn [acc x] (assoc acc (:path x) x)) {} ems))
 
+(filter (fn [x] (= (:$$path x) [:ElementDefinition :type :code])) ems)
 
-(map [])
+(defn- requireds [x]
+  (if (map? x)
+    (let [required (->> (filter (fn [[k v]] (= 1 (get-in v [:$$cardinality 0]))) x)
+                        (map first))]
+      (if (empty? required) x (assoc x :required required)))
+    x))
 
-(defn do-lighter [x]
-  (dissoc x :comments :requirements :definition :path :mapping))
+(defn- primitive-type? [x]
+  (contains? #{"string" "integer" "number" "boolean"} x))
 
-(comment
-  (take 10 (keys ems-idx))
-  (count ems)
-  (map :path (take 10 ems))
-  (dissoc (get ems-idx "Patient.identifier")
-          :comments :requirements :definition)
-  (def sd-meta (-> (fn [x] (= "StructureDefinition" (:type x)))
-                   (filter sd)
-                   first))
-  (:id (second sd))
-  (first sd))
+(defn- types-to-refs [x]
+  (if-let [tp (and (map? x) (:$$type x))]
+    (cond
+      (:$$contentReference x) {:$ref (->
+                                      (:$$contentReference x)
+                                      (str/replace #"#" "")
+                                      (str/split #"\.")
+                                      (->> (interpose "properties")
+                                           (str/join "/")
+                                           (str "#/definitions/")))}
+      (primitive-type? tp) (assoc x :type (:$$type x))
+      (= "BackboneElement" tp) (merge-with merge x {:type  "object"
+                                                    :additionalProperties false
+                                                    :properties {:id {:$ref "#/definitions/fhir_id"}
+                                                                 :extension {:type "array"
+                                                                             :items {:$ref "#/definitions/Extension"}}
+                                                                 :modifierExtension {:type "array"
+                                                                                     :items {:$ref "#/definitions/Extension"}}}})
 
-(get ems-idx "HumanName.given")
+      (= "Element" tp) (merge-with merge x {:type  "object"
+                                            :additionalProperties false
+                                            :properties {:id {:$ref "#/definitions/fhir_id"}
+                                                         :extension {:type "array"
+                                                                     :items {:$ref "#/definitions/Extension"}}}})
+      (= "object" tp) (merge x {:type  "object" :additionalProperties false})
+      :else (assoc x :$ref (str "#/definitions/" (if (= "id" tp) "fhir_id" tp))))
+    x))
 
-(defn resource-schema [s]
-  {:properties {:resourceType {:constant (:type s)}
-                :required [:resourceType]}})
+(defn- array? [x] (= "*" (second (:$$cardinality x))))
 
-(do-lighter (get ems-idx "Patient.name"))
+(defn- items [x]
+  (if (and (map? x) (array? x))
+    (merge {:type "array"
+            :items x}
+           (if (= 0 (first (:$$cardinality x)))
+             {} {:minItems (first (:$$cardinality x))}))
+    x))
 
-(defn generate-schema []
-  (reduce (fn [acc s] (assoc acc (:type s) (resource-schema s)))
-          {} sd))
+(defn- fix-elements [x]
+  (cond
+    (= 1 (count (:$$path x))) (merge-with merge x {:properties {:resourceType {:type "string" :constant (name (get-in x [:$$path 0]))}}})
+    (= (:$ref x) "#/definitions/Resource") {:type "object" :typeProperty "resourceType"}
+    :else x))
 
-(spit "/tmp/schema.json"
-      (to-json {:definitions (generate-schema)}))
+(defn- clear [x]
+  (if (map? x)
+    (into {} (filter (fn [[k v]] (not (str/starts-with? (name k) "$$"))) x))
+    x))
 
-(def fhir-schema
-  (->>
-   (reduce
-    (fn [acc x] (assoc-in acc (:$path x) {:$meta (do-lighter x)}))
-    {} ems)))
+(defn- generate-schema []
+  (let [sch (reduce (fn [acc e]
+                      (let [d {:$$description (:short e) 
+                               :$$binding (:binding e)
+                               :$$contentReference (:contentReference e)
+                               :$$path (:$$path e)
+                               :$$type (or (get-in e [:type 0 :code]) "object")
+                               :$$cardinality [(:min e) (if (> (count (:$$path e)) 1) (:max e) 1)]}]
+                        (assoc-in acc (interpose :properties (:$$path e)) d)))
+                    {} ems)]
 
-(spit "/tmp/tempo.json"
-      (to-json fhir-schema))
+    (->>  sch
+          (postwalk types-to-refs)
+          (postwalk requireds)
+          (postwalk items)
+          (postwalk fix-elements)
+          (postwalk clear))))
 
-(first ems)
+(def primitives {:date {:type "string" :pattern "-?[0-9]{4}(-(0[1-9]|1[0-2])(-(0[0-9]|[1-2][0-9]|3[0-1]))?)?"}
+                 :decimal {:type "number"},
+                 :uri {:type "string"},
+                 :dateTime {:type "string",:pattern "-?[0-9]{4}(-(0[1-9]|1[0-2])(-(0[0-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?([Z+-]((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)?)?)?"},
+                 :instant {:type "string" :pattern "-?[0-9]{4}(-(0[1-9]|1[0-2])(-(0[0-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?([Z+-]((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)?)?)?"},
+                 :time {:type "string" :pattern "([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?"},
+                 :code {:type "string" :pattern "[^\\s]+([\\s]+[^\\s]+)*"},
+                 :markdown {:type "string"},
+                 :fhir_id {:type "string" :pattern "[A-Za-z0-9\\-\\.]{1,64}"},
+                 :oid {:type "string", :pattern "urn:oid:[0-2](\\.[1-9]\\d*)+"},
+                 :xhtml {:type "string"}
+                 :unsignedInt {:type "integer", :minimum 0, :exclusiveMinimum true},
+                 :positiveInt {:type "integer", :minimum 0, :exclusiveMinimum true},
+                 :uuid {:type "string"},
+                 :base64Binary {:type "string", :media {:binaryEncoding "base64"}}})
 
-(defn validate* [errors doc vpath path obj]
-  (let [sch (get-in fhir-schema path)]
-       (println "VALIDATE:" vpath path sch obj)
-       (cond
-         (map? obj) (reduce (fn [acc [k v]]
-                              (if-let [tp (get-in sch [:$meta :type 0])]
-                                (validate* acc doc (conj vpath k) [(keyword (:code tp)) k] v)
-                                (validate* acc doc (conj vpath k) (conj path k) v)))
-                            errors
-                            obj)
+(def schema {:type "object"
+             :typeProperty :resourceType 
+             :definitions (merge (generate-schema) primitives)})
 
-         (vector? obj) (reduce (fn [acc [k v]]
-                              (validate* acc doc (conj vpath k) path v))
-                            errors
-                            (map (fn [v i] [i v]) obj (range)))
-         :else errors)))
+(spit "/tmp/schema.yml" (u/to-yaml schema))
 
-(defn validate [r]
-  (validate* [] r [(keyword (:resourceType r))] [(keyword (:resourceType r))] (dissoc r :resourceType)))
+(schema/validate schema {:id "x" :resourceType "Patient" :name [{}]})
 
-(validate
-  {:resourceType "Patient"
-   :name [{:given ["Nicola"]}]})
-
+(defn validate [res]
+  (schema/validate schema res))
