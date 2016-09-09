@@ -31,8 +31,8 @@
 
 (def resources
   (concat
-   (map :resource (:entry (read-json "fhir/profiles-resources.json")))
-   (map :resource (:entry (read-json "fhir/profiles-types.json")))))
+   (map :resource (:entry (read-json "fhir-1.6/profiles-resources.json")))
+   (map :resource (:entry (read-json "fhir-1.6/profiles-types.json")))))
 
 (into #{} (map :resourceType resources))
 
@@ -110,7 +110,7 @@
 (spit "/tmp/tempo.json"
       (to-json fhir-schema))
 
-
+(first ems)
 
 (defn validate* [errors doc vpath path obj]
   (let [sch (get-in fhir-schema path)]
