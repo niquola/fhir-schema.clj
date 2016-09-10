@@ -25,7 +25,8 @@
   (if-let [tp (get-in e [:type 0 :code])]
     (if (re-matches #"^[a-z].*$" tp)
       [e (merge e {:$$path (conj (into [] (butlast (:$$path e))) (keyword (str "_" (name (last (:$$path e))))))
-                   :type [{:code "Element"}]})]
+                   :type [{:code "Element"}]
+                   :min 0})]
       [e])
     [e]))
 
@@ -54,6 +55,7 @@
 (defn- types-to-refs [x]
   (if-let [tp (and (map? x) (:$$type x))]
     (cond
+      ;; TODO do not handle items
       (:$$contentReference x) {:$ref (->
                                       (:$$contentReference x)
                                       (str/replace #"#" "")
@@ -64,7 +66,7 @@
       (primitive-type? tp) (assoc x :type (:$$type x))
       (= "BackboneElement" tp) (merge-with merge x {:type  "object"
                                                     :additionalProperties false
-                                                    :properties {:id {:$ref "#/definitions/fhir_id"}
+                                                    :properties {;;:id {:$ref "#/definitions/fhir_id"}
                                                                  :extension {:type "array"
                                                                              :items {:$ref "#/definitions/Extension"}}
                                                                  :modifierExtension {:type "array"
@@ -72,7 +74,7 @@
 
       (= "Element" tp) (merge-with merge x {:type  "object"
                                             :additionalProperties false
-                                            :properties {:id {:$ref "#/definitions/fhir_id"}
+                                            :properties {;;:id {:$ref "#/definitions/fhir_id"}
                                                          :extension {:type "array"
                                                                      :items {:$ref "#/definitions/Extension"}}}})
       (= "object" tp) (merge x {:type  "object" :additionalProperties false})
@@ -136,7 +138,7 @@
 
 (def schema {:type "object"
              :typeProperty :resourceType 
-             :definitions (merge (generate-schema) primitives)})
+             :definitions (dissoc (merge (generate-schema) primitives) :required)})
 
 (spit "/tmp/schema.yml" (u/to-yaml schema))
 

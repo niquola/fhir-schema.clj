@@ -5,6 +5,7 @@
             [clojure.java.io :as io]))
 
 (def invalid (read-string (slurp (io/resource "fhir_schema/invalid-resources.edn"))))
+
 (def valid (read-string (slurp (io/resource "fhir_schema/valid-resources.edn"))))
 
 
@@ -20,6 +21,9 @@
     (is (empty? (:errors (subj/validate r))) (pr-str r)))
 
   (doseq [r (load-sample "profiles-types")]
+    (is (empty? (:errors (subj/validate r))) (pr-str r)))
+
+  (doseq [r (load-sample "profiles-resources")]
     (is (empty? (:errors (subj/validate r))) (pr-str r)))
 
   (doseq [r (load-sample "valuesets")]
