@@ -10,5 +10,8 @@
                  [clj-yaml "0.4.0"]
                  [cheshire "5.6.3"]]
   :profiles
-  {:dev {:source-paths ["src" "json-schema.clj/src" "json-schema.clj/test"] 
-         :resource-paths ["resources" "test"]}})
+  {:user {:plugins [[cider/cider-nrepl "0.13.0"]
+                    [refactor-nrepl "2.2.0"]] }
+   :dev {:source-paths ["src" "json-schema.clj/src" "json-schema.clj/test"]
+         :resource-paths ["resources" "test"]
+         :dependencies [[me.raynes/fs "1.4.6"]]}})

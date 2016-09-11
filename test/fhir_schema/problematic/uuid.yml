@@ -1,0 +1,84 @@
+abstract: false
+url: http://hl7.org/fhir/StructureDefinition/uuid
+id: uuid
+snapshot:
+  element:
+  - id: uuid
+    path: uuid
+    short: Primitive Type uuid
+    definition: A UUID, represented as a URI
+    comments: See The Open Group, CDE 1.1 Remote Procedure Call specification, Appendix A.
+    min: 0
+    max: '*'
+    base: {path: uuid, min: 0, max: '*'}
+  - min: 0
+    max: '*'
+    path: uuid.extension
+    id: uuid.extension
+    base: {path: uuid.extension, min: 0, max: '*'}
+    short: Additional Content defined by implementations
+    definition: May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+    type:
+    - {code: Extension}
+    comments: There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.
+    alias: [extensions, user content]
+  - min: 0
+    max: '1'
+    path: uuid.value
+    id: uuid.value
+    base: {path: uri.value, min: 0, max: '1'}
+    short: Primitive value for uuid
+    representation: [xmlAttr]
+    definition: Primitive value for uuid
+    type:
+    - extension:
+      - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-regex',
+        valueString: 'urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'}
+      _code:
+        extension:
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type',
+          valueString: string}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type',
+          valueString: 'xsd:anyURI'}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-rdf-type',
+          valueString: 'xsd:string'}
+name: uuid
+status: draft
+text: {status: generated, div: '<div xmlns="http://www.w3.org/1999/xhtml">to do</div>'}
+kind: primitive-type
+fhirVersion: 1.6.0
+type: uuid
+baseDefinition: http://hl7.org/fhir/StructureDefinition/uri
+publisher: HL7 FHIR Standard
+meta: {lastUpdated: '2016-08-11T17:02:54.322+10:00'}
+date: '2016-08-11T17:02:54+10:00'
+differential:
+  element:
+  - {id: uuid, path: uuid, short: Primitive Type uuid, definition: 'A UUID, represented
+      as a URI', comments: 'See The Open Group, CDE 1.1 Remote Procedure Call specification,
+      Appendix A.', min: 0, max: '*'}
+  - id: uuid.value
+    path: uuid.value
+    representation: [xmlAttr]
+    short: Primitive value for uuid
+    definition: Primitive value for uuid
+    min: 0
+    max: '1'
+    type:
+    - extension:
+      - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-regex',
+        valueString: 'urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'}
+      _code:
+        extension:
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type',
+          valueString: string}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type',
+          valueString: 'xsd:anyURI'}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-rdf-type',
+          valueString: 'xsd:string'}
+resourceType: StructureDefinition
+contact:
+- telecom:
+  - {system: other, value: 'http://hl7.org/fhir'}
+derivation: specialization
+description: 'Base StructureDefinition for uuid type: A UUID, represented as a URI'

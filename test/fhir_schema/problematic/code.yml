@@ -1,0 +1,84 @@
+abstract: false
+url: http://hl7.org/fhir/StructureDefinition/code
+id: code
+snapshot:
+  element:
+  - id: code
+    path: code
+    short: Primitive Type code
+    definition: A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents
+    min: 0
+    max: '*'
+    base: {path: code, min: 0, max: '*'}
+  - min: 0
+    max: '*'
+    path: code.extension
+    id: code.extension
+    base: {path: code.extension, min: 0, max: '*'}
+    short: Additional Content defined by implementations
+    definition: May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+    type:
+    - {code: Extension}
+    comments: There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.
+    alias: [extensions, user content]
+  - min: 0
+    max: '1'
+    path: code.value
+    id: code.value
+    base: {path: string.value, min: 0, max: '1'}
+    short: Primitive value for code
+    representation: [xmlAttr]
+    definition: Primitive value for code
+    type:
+    - extension:
+      - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-regex',
+        valueString: '[^\s]+([\s]?[^\s]+)*'}
+      _code:
+        extension:
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type',
+          valueString: string}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type',
+          valueString: 'xsd:token'}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-rdf-type',
+          valueString: 'xsd:token'}
+name: code
+status: draft
+text: {status: generated, div: '<div xmlns="http://www.w3.org/1999/xhtml">to do</div>'}
+kind: primitive-type
+fhirVersion: 1.6.0
+type: code
+baseDefinition: http://hl7.org/fhir/StructureDefinition/string
+publisher: HL7 FHIR Standard
+meta: {lastUpdated: '2016-08-11T17:02:54.322+10:00'}
+date: '2016-08-11T17:02:54+10:00'
+differential:
+  element:
+  - {id: code, path: code, short: Primitive Type code, definition: A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents,
+    min: 0, max: '*'}
+  - id: code.value
+    path: code.value
+    representation: [xmlAttr]
+    short: Primitive value for code
+    definition: Primitive value for code
+    min: 0
+    max: '1'
+    type:
+    - extension:
+      - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-regex',
+        valueString: '[^\s]+([\s]?[^\s]+)*'}
+      _code:
+        extension:
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type',
+          valueString: string}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type',
+          valueString: 'xsd:token'}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-rdf-type',
+          valueString: 'xsd:token'}
+resourceType: StructureDefinition
+contact:
+- telecom:
+  - {system: other, value: 'http://hl7.org/fhir'}
+derivation: specialization
+description: 'Base StructureDefinition for code type: A string which has at least
+  one character and no leading or trailing whitespace and where there is no whitespace
+  other than single spaces in the contents'

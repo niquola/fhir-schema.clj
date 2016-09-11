@@ -8,4 +8,8 @@
   :error-paths [[:name]]} 
 
  {:resource {:resourceType "Patient" :name [{:extra ""}] :extra "filed"}
-  :error-paths [[] [:name 0]]}]
+  :error-paths [[] [:name 0]]}
+
+ {:desc "No empty objects"
+  :resource {:resourceType "Patient" :name [{}]}
+  :error-paths [[:name 0]]}]

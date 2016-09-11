@@ -18,6 +18,9 @@
 (defn to-yaml [m]
   (yaml/generate-string m))
 
+(defn from-yaml [s]
+  (yaml/parse-string s))
+
 (defn from-json [s]
   (json/parse-string s keyword))
 

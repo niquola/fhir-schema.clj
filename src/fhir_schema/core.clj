@@ -12,6 +12,8 @@
 
 (defn- poly-type? [x] (re-seq #"\[x]" x))
 
+(defn- array? [x] (= "*" (second (:$$cardinality x))))
+
 (defn- expand [{pth :$$path :as e}]
   (let [x (last pth)]
     (if (poly-type? (name x))
@@ -25,7 +27,7 @@
   (if-let [tp (get-in e [:type 0 :code])]
     (if (re-matches #"^[a-z].*$" tp)
       [e (merge e {:$$path (conj (into [] (butlast (:$$path e))) (keyword (str "_" (name (last (:$$path e))))))
-                   :type [{:code "Element"}]
+                   :type [{:code "PrimitiveExtension"}]
                    :min 0})]
       [e])
     [e]))
@@ -40,7 +42,9 @@
           (reduce (fn [acc x] (into acc (primitive-extensions x))) [])))
 
 
-(filter (fn [x] (= (:$$path x) [:ElementDefinition :type :code])) ems)
+(comment 
+  (:contentReference (first (filter (fn [x] (= (:$$path x) [:Conformance :rest :searchParam])) ems)))
+  )
 
 (defn- requireds [x]
   (if (map? x)
@@ -52,39 +56,31 @@
 (defn- primitive-type? [x]
   (contains? #{"string" "integer" "number" "boolean"} x))
 
+
 (defn- types-to-refs [x]
   (if-let [tp (and (map? x) (:$$type x))]
     (cond
-      ;; TODO do not handle items
-      (:$$contentReference x) {:$ref (->
-                                      (:$$contentReference x)
-                                      (str/replace #"#" "")
-                                      (str/split #"\.")
-                                      (->> (interpose "properties")
-                                           (str/join "/")
-                                           (str "#/definitions/")))}
+      (:$$contentReference x) {:$$contentReference (:$$contentReference x)}
       (primitive-type? tp) (assoc x :type (:$$type x))
       (= "BackboneElement" tp) (merge-with merge x {:type  "object"
+                                                    :minProperties 1
                                                     :additionalProperties false
-                                                    :properties {;;:id {:$ref "#/definitions/fhir_id"}
-                                                                 :extension {:type "array"
-                                                                             :items {:$ref "#/definitions/Extension"}}
-                                                                 :modifierExtension {:type "array"
-                                                                                     :items {:$ref "#/definitions/Extension"}}}})
+                                                    :properties {:extension {:$ref "#/definitions/ArrayOfExtensions"}
+                                                                 :modifierExtension {:$ref "#/definitions/ArrayOfExtensions"}}})
 
       (= "Element" tp) (merge-with merge x {:type  "object"
+                                            :minProperties 1
                                             :additionalProperties false
-                                            :properties {;;:id {:$ref "#/definitions/fhir_id"}
-                                                         :extension {:type "array"
-                                                                     :items {:$ref "#/definitions/Extension"}}}})
-      (= "object" tp) (merge x {:type  "object" :additionalProperties false})
+                                            :properties {:extension {:$ref "#/definitions/ArrayOfExtensions"}}})
+      (= "object" tp) (merge x {:type  "object"
+                                :minProperties 1
+                                :additionalProperties false})
       :else (assoc x :$ref (str "#/definitions/" (if (= "id" tp) "fhir_id" tp))))
     x))
 
-(defn- array? [x] (= "*" (second (:$$cardinality x))))
 
 (defn- items [x]
-  (if (and (map? x) (array? x))
+  (if (array? x)
     (merge {:type "array"
             :items x}
            (if (= 0 (first (:$$cardinality x)))
@@ -97,6 +93,43 @@
     (= (:$ref x) "#/definitions/Resource") {:type "object" :typeProperty "resourceType"}
     :else x))
 
+(defn resolve-content-ref [ref sch]
+  (let [path (-> (str/replace ref #"^#" "")
+                 (str/split #"\.")
+                 (->> (mapv keyword)))]
+    (loop [node sch
+           pointer []
+           [k & ks] path]
+      (let [nnode (get node k)
+            pointer (conj pointer k)]
+        (cond
+          (nil? nnode) (throw (Exception. (str "Could not resolve " ref)))
+          (empty? ks)  pointer
+          (get-in nnode [:properties]) (recur (:properties nnode)
+                                              (into [] (conj pointer :properties))
+                                              ks)
+
+          (get-in nnode [:items :properties]) (recur (get-in nnode [:items :properties])
+                                                     (into [] (concat pointer [:items :properties]))
+                                              ks)
+          :else (throw (Exception. (str "Could not resolve " ref))))))))
+
+(comment
+  (resolve-content-ref
+   "#Conformance.rest.resource.searchParam"
+   (:definitions schema)))
+
+(defn- global-postwalk [sch]
+  (postwalk (fn [x]
+              (cond
+                (:$$contentReference x) {:$ref
+                                         (->> (resolve-content-ref (:$$contentReference x) sch)
+                                             (map name)
+                                             (str/join "/")
+                                             (str "#/definitions/"))}
+                :else x))
+            sch))
+
 (defn- clear [x]
   (if (map? x)
     (into {} (filter (fn [[k v]] (not (str/starts-with? (name k) "$$"))) x))
@@ -104,7 +137,7 @@
 
 (defn- generate-schema []
   (let [sch (reduce (fn [acc e]
-                      (let [d {:$$description (:short e) 
+                      (let [d {:$$description (:short e)
                                :$$binding (:binding e)
                                :$$contentReference (:contentReference e)
                                :$$path (:$$path e)
@@ -118,6 +151,7 @@
           (postwalk requireds)
           (postwalk items)
           (postwalk fix-elements)
+          (global-postwalk)
           (postwalk clear))))
 
 (def primitives {:date {:type "string" :pattern "-?[0-9]{4}(-(0[1-9]|1[0-2])(-(0[0-9]|[1-2][0-9]|3[0-1]))?)?"}
@@ -136,9 +170,17 @@
                  :uuid {:type "string"},
                  :base64Binary {:type "string", :media {:binaryEncoding "base64"}}})
 
+(def additional-defs
+  {:PrimitiveExtension {:type "object"
+                        :additionalProperties false
+                        :minProperties 1
+                        :properties {:extension {:$ref "#/definitions/ArrayOfExtensions"}}}
+   :ArrayOfExtensions {:type "array"
+                       :items {:$ref "#/definitions/Extension"}}})
+
 (def schema {:type "object"
              :typeProperty :resourceType 
-             :definitions (dissoc (merge (generate-schema) primitives) :required)})
+             :definitions (dissoc (merge (generate-schema) primitives additional-defs) :required)})
 
 (spit "/tmp/schema.yml" (u/to-yaml schema))
 

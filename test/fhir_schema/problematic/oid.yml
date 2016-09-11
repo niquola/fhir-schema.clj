@@ -1,0 +1,83 @@
+abstract: false
+url: http://hl7.org/fhir/StructureDefinition/oid
+id: oid
+snapshot:
+  element:
+  - id: oid
+    path: oid
+    short: Primitive Type oid
+    definition: An oid represented as a URI
+    comments: RFC 3001. See also ISO/IEC 8824:1990 €
+    min: 0
+    max: '*'
+    base: {path: oid, min: 0, max: '*'}
+  - min: 0
+    max: '*'
+    path: oid.extension
+    id: oid.extension
+    base: {path: oid.extension, min: 0, max: '*'}
+    short: Additional Content defined by implementations
+    definition: May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
+    type:
+    - {code: Extension}
+    comments: There can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core level of simplicity for everyone.
+    alias: [extensions, user content]
+  - min: 0
+    max: '1'
+    path: oid.value
+    id: oid.value
+    base: {path: uri.value, min: 0, max: '1'}
+    short: Primitive value for oid
+    representation: [xmlAttr]
+    definition: Primitive value for oid
+    type:
+    - extension:
+      - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-regex',
+        valueString: 'urn:oid:(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))*'}
+      _code:
+        extension:
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type',
+          valueString: string}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type',
+          valueString: 'xsd:anyURI'}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-rdf-type',
+          valueString: 'xsd:string'}
+name: oid
+status: draft
+text: {status: generated, div: '<div xmlns="http://www.w3.org/1999/xhtml">to do</div>'}
+kind: primitive-type
+fhirVersion: 1.6.0
+type: oid
+baseDefinition: http://hl7.org/fhir/StructureDefinition/uri
+publisher: HL7 FHIR Standard
+meta: {lastUpdated: '2016-08-11T17:02:54.322+10:00'}
+date: '2016-08-11T17:02:54+10:00'
+differential:
+  element:
+  - {id: oid, path: oid, short: Primitive Type oid, definition: An oid represented as a URI,
+    comments: 'RFC 3001. See also ISO/IEC 8824:1990 €', min: 0, max: '*'}
+  - id: oid.value
+    path: oid.value
+    representation: [xmlAttr]
+    short: Primitive value for oid
+    definition: Primitive value for oid
+    min: 0
+    max: '1'
+    type:
+    - extension:
+      - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-regex',
+        valueString: 'urn:oid:(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))*'}
+      _code:
+        extension:
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-json-type',
+          valueString: string}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-xml-type',
+          valueString: 'xsd:anyURI'}
+        - {url: 'http://hl7.org/fhir/StructureDefinition/structuredefinition-rdf-type',
+          valueString: 'xsd:string'}
+resourceType: StructureDefinition
+contact:
+- telecom:
+  - {system: other, value: 'http://hl7.org/fhir'}
+derivation: specialization
+description: 'Base StructureDefinition for oid type: An oid represented as a URI'
