@@ -70,6 +70,9 @@
     (= (:$ref x) (pointer-to-type "Resource"))
     {:type "object" :typeProperty "resourceType"}
 
+    ;; constraints
+    (:$$constraint x) (assoc x :$constraints (:$$constraint))
+
     ;; valueset binding
     (:$$binding x)
     (assoc x :$deffered (-> (select-keys (:$$binding x) [:strength :valueSetReference])
@@ -156,6 +159,7 @@
   {:$$description (:short e)
    :$$binding (:binding e)
    :$$contentReference (:contentReference e)
+   :$$constraint (:contraint e)
    :$$path (:$$path e)
    :$$type (or (get-in e [:type 0 :code]) "object")
    :$$min (:min e)

@@ -21,8 +21,7 @@
   (let [x (last pth)]
     (if (poly-type? (name x))
       (map (fn [tp]
-             (merge e {:$$path (update-last #(keyword (substitute-x (name %) (:code tp)))
-                                            pth)
+             (merge e {:$$path (update-last #(keyword (substitute-x (name %) (:code tp))) pth)
                        :type [tp]}))
            (:type e))
       [e])))
@@ -44,6 +43,7 @@
                (mapcat expand)
                (mapcat primitive-extensions)))
 
+
 (def schema (gen/generate elements))
 
 (defn validate [res]
@@ -52,5 +52,11 @@
 (comment
   (schema/validate schema {:id "x" :resourceType "Patient" :name [{}]})
   (u/save-yalm schema "/tmp/schema.yml" )
+
+  (u/save-yalm (->> elements
+                    (filter :constraint)
+                    (mapcat (fn [x] (map #(dissoc % :xpath) (:constraint x))))
+                    #_(map :expression))
+               "test/constraints.yml")
   )
 

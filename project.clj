@@ -8,6 +8,7 @@
                   "json-schema.clj/test"]
   :dependencies [[org.clojure/clojure "1.9.0-alpha12"]
                  [clj-yaml "0.4.0"]
+                 [clj-antlr "0.2.3"]
                  [cheshire "5.6.3"]]
   :profiles
   {:user {:plugins [[cider/cider-nrepl "0.13.0"]

@@ -12,6 +12,7 @@
       (slurp)
       (json/parse-string  keyword)))
 
+
 (defn to-json [m]
   (json/generate-string m {:pretty true}))
 
@@ -23,6 +24,11 @@
 
 (defn from-yaml [s]
   (yaml/parse-string s))
+
+(defn read-yaml [pth]
+  (-> (io/resource pth)
+      (slurp)
+      (from-yaml)))
 
 (defn from-json [s]
   (json/parse-string s keyword))

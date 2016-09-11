@@ -1,0 +1,1269 @@
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: csd-1, severity: error, human: 'Within a code system definition, all the codes
+    SHALL be unique', expression: (concept.code | descendants().concept.code).isDistinct()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: vsd-2, severity: error, human: A value set with only one import SHALL also have an include and/or an exclude,
+  expression: compose.import.count() != 1 or compose.include.exists() or compose.exclude.exists()}
+- {key: vsd-5, severity: error, human: 'Value set SHALL contain at least one of a
+    a compose, or an expansion element', expression: compose.exists() or expansion.exists()}
+- {key: vsd-1, severity: error, human: A value set composition SHALL have an include or an import,
+  expression: include.exists() or import.exists()}
+- {key: vsd-11, severity: error, human: Cannot have both concept and filter, expression: concept.empty() or filter.empty()}
+- {key: vsd-6, severity: error, human: SHALL have a code or a display, expression: code.exists() or display.exists()}
+- {key: vsd-9, severity: error, human: Must have a code if not abstract, expression: code.exists() or abstract = true}
+- {key: vsd-10, severity: error, human: Must have a system if a code is present, expression: code.empty() or system.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: inv-1, severity: error, human: 'A parameter must have only one of (value,
+    resource, part)', expression: (part.exists() and value.empty() and resource.empty()) or (part.empty() and (value.exists() xor resource.exists()))}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: app-3, severity: error, human: Only proposed or cancelled appointments can be missing start/end dates,
+  expression: (start.exists() and end.exists()) or (status in ('proposed' | 'cancelled'))}
+- {key: app-2, severity: error, human: 'Either start and end are specified, or neither',
+  expression: start.empty() xor end.exists()}
+- {key: app-1, severity: error, human: Either the type or actor on the participant MUST be specified,
+  expression: type.exists() or actor.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: apr-1, severity: error, human: Either the participantType or actor must be specified,
+  expression: participantType.exists() or actor.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: sev-1, severity: error, human: Either a name or a query (NOT both), expression: name.empty() or query.empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: bdl-7, severity: error, human: 'FullUrl must be unique in a bundle, or else
+    entries with the same fullUrl must have different meta.versionId', expression: entry.where(fullUrl).select(fullUrl&resource.meta.versionId).isDistinct()}
+- {key: bdl-3, severity: error, human: entry.request only for some types of bundles,
+  expression: entry.request.empty() or type = 'batch' or type = 'transaction' or type = 'history'}
+- {key: bdl-4, severity: error, human: entry.response only for some types of bundles,
+  expression: entry.response.empty() or type = 'batch-response' or type = 'transaction-response'}
+- {key: bdl-1, severity: error, human: total only when a search or history, expression: total.empty() or (type = 'searchset') or (type = 'history')}
+- {key: bdl-2, severity: error, human: entry.search only when a search, expression: entry.search.empty() or (type = 'searchset')}
+- {key: bdl-8, severity: error, human: fullUrl cannot be a version specific reference,
+  expression: fullUrl.contains('/_history/').not()}
+- {key: bdl-5, severity: error, human: must be a resource unless there's a request or response,
+  expression: resource.exists() or request.exists() or response.exists()}
+- {key: bdl-6, severity: error, human: 'The fullUrl element must be present when a
+    resource is present, and not present otherwise', expression: fullUrl.empty() xor resource.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: ctm-3, severity: error, human: 'Provide a reference or detail, not both',
+  expression: detail.empty() or reference.empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: cmp-1, severity: error, human: 'A section must at least one of text, entries,
+    or sub-sections', expression: text.exists() or entry.exists() or section.exists()}
+- {key: cmp-2, severity: error, human: A section can only have an emptyReason if it is empty,
+  expression: emptyReason.empty() or entry.empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: cmd-1, severity: error, human: 'If the map is narrower or inexact, there SHALL
+    be some comments', expression: comments.exists() or equivalence.empty() or ((equivalence != 'narrower') and (equivalence != 'inexact'))}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: con-1, severity: error, human: Stage SHALL have summary or assessment, expression: summary.exists() or assessment.exists()}
+- {key: con-2, severity: error, human: evidence SHALL have code or details, expression: code.exists() or detail.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: cnf-8, severity: error, human: There can only be one REST declaration per mode,
+  expression: rest.select(mode).isDistinct()}
+- {key: cnf-7, severity: error, human: The set of documents must be unique by the combination of profile & mode,
+  expression: document.select(profile&mode).isDistinct()}
+- {key: cnf-2, severity: error, human: 'A Conformance statement SHALL have at least
+    one of description, software, or implementation', expression: (description.count() + software.count() + implementation.count()) > 0}
+- {key: cnf-3, severity: error, human: Messaging end-point is required (and is only permitted) when statement is for an implementation,
+  expression: messaging.endpoint.empty() or kind = 'instance'}
+- {key: cnf-1, severity: error, human: 'A Conformance statement SHALL have at least
+    one of REST, messaging or document', expression: rest.exists() or messaging.exists() or document.exists()}
+- {key: cnf-14, severity: error, human: Conformance statements of kind 'requirements' do not have software or implementation elements,
+  expression: (software.empty() and implementation.empty()) or kind != 'requirements'}
+- {key: cnf-15, severity: error, human: Conformance statements of kind 'software' do not have implementation elements,
+  expression: implementation.empty() or kind != 'capability'}
+- {key: cnf-9, severity: error, human: A given resource can only be described once per RESTful mode,
+  expression: resource.select(type).isDistinct()}
+- {key: cnf-12, severity: error, human: Search parameter names must be unique in the context of a resource,
+  expression: searchParam.select(name).isDistinct()}
+- {key: cnf-13, severity: error, human: Search parameters can only have chain names when the search parameter type is 'reference',
+  expression: chain.empty() or type = 'reference'}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dae-1, severity: error, human: No base allowed, expression: base.empty()}
+- {key: dae-2, severity: error, human: No slicing allowed, expression: slicing.empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: exp-1, severity: error, human: SHALL NOT have include and exclude, expression: include.empty() or exclude.empty()}
+- {key: exp-2, severity: error, human: SHALL NOT have include and exclude, expression: include.empty() or exclude.empty()}
+- {key: exp-3, severity: error, human: SHALL have at least one of language or use,
+  expression: language.empty().not() or use.empty().not()}
+- {key: exp-4, severity: error, human: SHALL have at least one of language or use,
+  expression: language.empty().not() or use.empty().not()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: fhs-2, severity: error, human: 'Can only have estimatedAge is age[x] is present',
+  expression: age.exists() or estimatedAge.empty()}
+- {key: fhs-1, severity: error, human: 'Can have age[x] or born[x], but not both',
+  expression: age.empty() or born.empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: grp-1, severity: error, human: Can only have members if group is "actual",
+  expression: member.empty() or (actual = true)}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: imm-2, severity: error, human: If immunization was administered (wasNotGiven=false) then explanation.reasonNotGiven SHALL be absent.,
+  expression: (wasNotGiven = true) or explanation.reasonNotGiven.empty()}
+- {key: imm-1, severity: error, human: If immunization was not administered (wasNotGiven=true) then there SHALL be no reaction nor explanation.reason present,
+  expression: (wasNotGiven = true).not() or (reaction.empty() and explanation.reason.empty())}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: lst-2, severity: error, human: The deleted flag can only be used if the mode of the list is "changes",
+  expression: mode = 'changes' or entry.deleted.empty()}
+- {key: lst-1, severity: error, human: A list can only have an emptyReason if it is empty,
+  expression: emptyReason.empty() or entry.empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: mda-1, severity: error, human: Height can only be used for a photo or video,
+  expression: height.empty() or type != 'audio'}
+- {key: mda-2, severity: error, human: Width can only be used for a photo or video,
+  expression: width.empty() or type != 'audio'}
+- {key: mda-3, severity: error, human: Frames can only be used for a photo, expression: frames.empty() or type = 'photo'}
+- {key: mda-4, severity: error, human: Duration can only be used for an audio or a video,
+  expression: duration.empty() or type != 'photo'}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: mad-2, severity: error, human: Reason not given is only permitted if wasNotGiven is true,
+  expression: reasonNotGiven.empty() or wasNotGiven = true}
+- {key: mad-3, severity: error, human: Reason given is only permitted if wasNotGiven is false,
+  expression: reasonGiven.empty() or wasNotGiven.empty() or wasNotGiven = 'false'}
+- {key: mad-1, severity: error, human: 'SHALL have at least one of dosage.dose and
+    dosage.rate[x]', expression: dose.exists() or rate.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: mdd-1, severity: error, human: whenHandedOver cannot be before whenPrepared,
+  expression: whenHandedOver.empty() or whenPrepared.empty() or whenHandedOver >= whenPrepared}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: mst-3, severity: error, human: Reason for use reference is only permitted if notTaken is false,
+  expression: reasonForUseReference.empty() or notTaken = false}
+- {key: mst-1, severity: error, human: Reason not taken is only permitted if notTaken is true,
+  expression: reasonNotTaken.empty() or notTaken = true}
+- {key: mst-2, severity: error, human: Reason for use code is only permitted if notTaken is false,
+  expression: reasonForUseCode.empty() or notTaken = false}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: nsd-1, severity: error, human: Root systems cannot have uuid identifiers,
+  expression: kind != 'root' or uniqueId.type = 'uuid'}
+- {key: nsd-3, severity: error, human: Can only have replacedBy if naming system is retired,
+  expression: replacedBy.empty() or status = 'retired'}
+- {key: nsd-2, severity: error, human: Can't have more than one preferred identifier for a type,
+  expression: uniqueId.where(preferred = true).select(type).isDistinct()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: nor-1, severity: warning, human: 'Nutrition Order SHALL contain either Oral
+    Diet , Supplement, or Enteral Formula class', expression: oralDiet.exists() or supplement.exists() or enteralFormula.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: obs-7, severity: error, human: If code is the same as a component code then the value element associated with the code SHALL NOT be present,
+  expression: value.empty() or code!=component.code}
+- {key: obs-6, severity: error, human: 'dataAbsentReason SHALL only be present if
+    Observation.value[x] is not present', expression: dataAbsentReason.empty() or value.empty()}
+- {key: obs-3, severity: error, human: Must have at least a low or a high or text,
+  expression: low.exists() or high.exists() or text.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: opd-1, severity: error, human: 'Either a type must be provided, or parts',
+  expression: type.exists() or part.exists()}
+- {key: opd-2, severity: error, human: A search type can only be specified for parameters of type string,
+  expression: searchType implies type = 'string'}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: org-1, severity: error, human: 'The organization SHALL at least have a name
+    or an id, and possibly more than one', expression: (identifier.count() + name.count()) > 0}
+- {key: org-3, severity: error, human: The telecom of an organization can never be of use 'home',
+  expression: select(use = 'home').empty()}
+- {key: org-2, severity: error, human: An address of an organization can never be of use 'home',
+  expression: select(use = 'home').empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: pat-1, severity: error, human: SHALL at least contain a contact's details or a reference to an organization,
+  expression: name.exists() or telecom.exists() or address.exists() or organization.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: pro-1, severity: error, human: Reason not performed is only permitted if notPerformed indicator is true,
+  expression: reasonNotPerformed.empty() or notPerformed = true}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: que-2, severity: error, human: The link ids for groups and questions must be unique within the questionnaire,
+  expression: descendants().linkId.isDistinct()}
+- {key: que-9, severity: error, human: Read-only can't be specified for "display" items,
+  expression: type!='display' or readOnly.empty()}
+- {key: que-8, severity: error, human: Default values can't be specified for groups or display items,
+  expression: (type!='group' and type!='display') or initial.empty()}
+- {key: que-6, severity: error, human: Required and repeat aren't permitted for display items,
+  expression: type!='display' or (required.empty() and repeats.empty())}
+- {key: que-5, severity: error, human: Only 'choice' items can have options, expression: (type ='choice' or type = 'open-choice') or (options.empty() and option.empty())}
+- {key: que-4, severity: error, human: A question cannot have both option and options,
+  expression: option.empty() or options.empty()}
+- {key: que-3, severity: error, human: Display items cannot have a "concept" asserted,
+  expression: type!='display' or concept.empty()}
+- {key: que-10, severity: error, human: Maximum length can only be declared for simple question types,
+  expression: (type in ('boolean' | 'decimal' | 'integer' | 'string' | 'text' | 'url')) or maxLength.empty()}
+- {key: que-1, severity: error, human: 'Group items must have nested items, display
+    items cannot have nested items', expression: (type='group' implies item.empty().not()) and (type.trace('type')='display' implies item.trace('item').empty())}
+- {key: que-7, severity: error, human: enableWhen must contain either an 'answer' or an 'answered' element,
+  expression: hasAnswer.exists() xor answer.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: ras-2, severity: error, human: Must be <= 100, expression: probability is decimal implies probability.as(decimal) <= 100}
+- {key: ras-1, severity: error, human: 'low and high must be percentages, if present',
+  expression: (low.empty() or ((low.code = '%') and (low.system = %ucum))) and (high.empty() or ((high.code = '%') and (high.system = %ucum)))}
+- {key: ras-1, severity: error, human: 'low and high must be percentages, if present',
+  expression: (low.empty() or ((low.code = '%') and (low.system = %ucum))) and (high.empty() or ((high.code = '%') and (high.system = %ucum)))}
+- {key: ras-1, severity: error, human: 'low and high must be percentages, if present',
+  expression: (low.empty() or ((low.code = '%') and (low.system = %ucum))) and (high.empty() or ((high.code = '%') and (high.system = %ucum)))}
+- {key: ras-1, severity: error, human: 'low and high must be percentages, if present',
+  expression: (low.empty() or ((low.code = '%') and (low.system = %ucum))) and (high.empty() or ((high.code = '%') and (high.system = %ucum)))}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: spd-1, severity: error, human: 'If an xpath is present, there SHALL be an
+    xpathUsage', expression: xpath.empty() or xpathUsage.exists()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: sdf-16, requirements: element ids need to be unique, severity: error, human: All element definitions must have unique ids (snapshot),
+  expression: snapshot.element.id.trace('ids').isDistinct()}
+- {key: sdf-9, requirements: Because these 3 fields seem to be have overlapping meaning with the ones in the root of StructureDefinition,
+  severity: error, human: 'In any snapshot or differential, no label, code or requirements
+    on the an element without a "." in the path (e.g. the first element)', expression: children().element.first().label.empty() and children().element.first().code.empty() and children().element.first().requirements.empty()}
+- {key: sdf-17, requirements: element ids need to be unique, severity: error, human: All element definitions must have unique ids (diff),
+  expression: differential.element.id.trace('ids').isDistinct()}
+- {key: sdf-12, requirements: Ensure that element.base appears with base or not, severity: error,
+  human: element.base cannot appear if there is no base on the structure definition,
+  expression: snapshot.exists() implies (snapshot.element.base.exists() = baseDefinition.exists())}
+- {key: sdf-11, requirements: Ensure that the type is not inconsistent with the other information in the structure,
+  severity: error, human: 'If there''s a type, its content must match the path name
+    in the first element of a snapshot', expression: snapshot.empty() or snapshot.element.first().path = type}
+- {key: sdf-14, requirements: elements have id, severity: error, human: All element definitions must have an id,
+  expression: snapshot.element.all(id.exists()) and differential.element.all(id.exists())}
+- {key: sdf-1, severity: error, human: Element paths must be unique unless the structure is a constraint,
+  expression: derivation = 'constraint' or snapshot.element.select(path).distinct()}
+- {key: sdf-7, severity: error, human: 'If the structure describes a base Resource
+    or Type, the URL has to start with "http://hl7.org/fhir/StructureDefinition/"
+    and the tail must match the id', expression: '(derivation = ''constraint'') or
+    (url = ''http://hl7.org/fhir/StructureDefinition/''+id)'}
+- {key: sdf-6, severity: error, human: 'A structure must have either a differential,
+    or a snapshot (or both)', expression: snapshot.exists() or differential.exists()}
+- {key: sdf-5, severity: error, human: If the structure defines an extension then the structure must have context information,
+  expression: type != 'Extension' or derivation = 'specialization' or (context.exists() and contextType.exists())}
+- {key: sdf-4, requirements: Ensure that the base types are abstract, severity: error,
+  human: 'If the structure is not abstract, then there SHALL be a baseDefinition',
+  expression: abstract = true or baseDefinition.exists()}
+- {key: sdf-2, severity: error, human: Must have at a name or a uri (or both), expression: name.exists() or uri.exists()}
+- {key: sdf-15, requirements: No Type on the root element (snapshot), severity: error,
+  human: The first element in a snapshot has no type, expression: element.first().type.empty()}
+- {key: sdf-8, severity: error, human: 'In any snapshot, all the elements must be
+    in the specified type', expression: element.first().path = %resource.type and element.tail().all(path.startsWith(%resource.type&'.'))}
+- {key: sdf-3, severity: error, human: Each element definition in a snapshot must have a formal definition and cardinalities,
+  expression: element.all(definition and min and max)}
+- {key: sdf-15a, requirements: No Type on the root element (differential), severity: error,
+  human: 'If the first element in a differential has no "." in the path, it has no
+    type', expression: element.first().path.contains('.').not() implies element.first().type.empty()}
+- {key: sdf-8a, severity: error, human: 'In any differential, all the elements must
+    be in the specified type', expression: element.first().path.startsWith(%resource.type) and element.tail().all(path.startsWith(%resource.type&'.'))}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: inv-1, severity: error, human: Last modified date must be greater than or equal to created date.,
+  expression: lastModified >= created}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: inv-5, severity: error, human: TestScript metadata capability SHALL contain required or validated or both.,
+  expression: capability.required.exists() or capability.validated.exists()}
+- {key: inv-4, severity: error, human: Variable cannot contain both headerField and path.,
+  expression: headerField.empty() or path.empty()}
+- {key: inv-1, severity: error, human: Setup action SHALL contain either an operation or assert but not both.,
+  expression: operation.exists() xor assert.exists()}
+- {key: inv-8, severity: error, human: Setup operation SHALL contain either sourceId or targetId or params or url.,
+  expression: sourceId.exists() or (targetId.count() + url.count() + params.count() = 1) or (type.code in ('conformance' |'search' | 'transaction' | 'history'))}
+- {key: inv-6, severity: error, human: Only a single assertion SHALL be present within setup action assert element.,
+  expression: contentType.count() + headerField.count() + minimumId.count() + navigationLinks.count() + path.count() + resource.count() + responseCode.count() + response.count() + rule.count() + ruleset.count() + validateProfileId.count() <=1}
+- {key: inv-11, severity: error, human: Setup action assert shall contain both compareToSourceId and compareToSourcePath or neither.,
+  expression: compareToSourceId.empty() xor compareToSourcePath.exists()}
+- {key: inv-2, severity: error, human: Test action SHALL contain either an operation or assert but not both.,
+  expression: operation.exists() xor assert.exists()}
+- {key: inv-9, severity: error, human: Test operation SHALL contain either sourceId or targetId or params or url.,
+  expression: sourceId.exists() or (targetId.count() + url.count() + params.count() = 1) or (type.code in ('conformance' | 'search' | 'transaction' | 'history'))}
+- {key: inv-7, severity: error, human: Only a single assertion SHALL be present within test action assert element.,
+  expression: contentType.count() + headerField.count() + minimumId.count() + navigationLinks.count() + path.count() + resource.count() + responseCode.count() + response.count() + rule.count() + ruleset.count() + validateProfileId.count() <=1}
+- {key: inv-12, severity: error, human: Test action assert shall contain both compareToSourceId and compareToSourcePath or neither.,
+  expression: compareToSourceId.empty() xor compareToSourcePath.exists()}
+- {key: inv-3, severity: error, human: Teardown action SHALL contain an operation.,
+  expression: operation.exists()}
+- {key: inv-10, severity: error, human: Teardown operation SHALL contain either sourceId or targetId or params or url.,
+  expression: sourceId.exists() or (targetId.count() + url.count() + params.count() = 1) or (type.code in ('conformance' | 'search' | 'transaction' | 'history'))}
+- {key: dom-2, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain nested Resources', expression: contained.contained.empty()}
+- {key: dom-1, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL NOT contain any narrative', expression: contained.text.empty()}
+- {key: dom-4, severity: error, human: 'If a resource is contained in another resource,
+    it SHALL NOT have a meta.versionId or a meta.lastUpdated', expression: contained.meta.versionId.empty() and contained.meta.lastUpdated.empty()}
+- {key: dom-3, severity: error, human: 'If the resource is contained in another resource,
+    it SHALL be referred to from elsewhere in the resource', expression: contained.where(('#'+id in %resource.descendants().reference).not()).empty()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ref-1, severity: error, human: SHALL have a local reference if the resource is provided inline,
+  expression: reference.startsWith('#').not() or (reference.substring(1).trace('url') in %resource.contained.id.trace('ids'))}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: qty-3, severity: error, human: 'If a code for the unit is present, the system
+    SHALL also be present', expression: code.empty() or system.exists()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: per-1, severity: error, human: 'If present, start SHALL have a lower value
+    than end', expression: start.empty() or end.empty() or (start <= end)}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: att-1, severity: error, human: 'It the Attachment has data, it SHALL have
+    a contentType', expression: data.empty() or contentType.exists()}
+- {key: qty-3, severity: error, human: 'If a code for the unit is present, the system
+    SHALL also be present', expression: code.empty() or system.exists()}
+- {key: drt-1, severity: error, human: 'There SHALL be a code if there is a value
+    and it SHALL be an expression of time.  If system is present, it SHALL be UCUM.',
+  expression: (code or value.empty()) and (system.empty() or system = %ucum)}
+- {key: qty-3, severity: error, human: 'If a code for the unit is present, the system
+    SHALL also be present', expression: code.empty() or system.exists()}
+- {key: cnt-3, severity: error, human: 'There SHALL be a code with a value of "1"
+    if there is a value and it SHALL be an expression of length.  If system is present,
+    it SHALL be UCUM.  If present, the value SHALL a whole number.', expression: (code or value.empty()) and (system.empty() or system = %ucum) and (code.empty() or code = '1') and (value.empty() or value.toString().contains('.').not())}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: rng-2, severity: error, human: 'If present, low SHALL have a lower value than
+    high', expression: low.empty() or high.empty() or (low <= high)}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: qty-3, severity: error, human: 'If a code for the unit is present, the system
+    SHALL also be present', expression: code.empty() or system.exists()}
+- {key: mny-1, severity: error, human: 'There SHALL be a code if there is a value
+    and it SHALL be an expression of currency.  If system is present, it SHALL be
+    ISO 4217 (system = "urn:iso:std:iso:4217" - currency).', expression: '(code or
+    value.empty()) and (system.empty() or system = ''urn:iso:std:iso:4217'')'}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: rat-1, severity: error, human: 'Numerator and denominator SHALL both be present,
+    or both are absent. If both are absent, there SHALL be some extension present',
+  expression: (numerator.exists() and denominator.exists()) or extension.exists()}
+- {key: qty-3, severity: error, human: 'If a code for the unit is present, the system
+    SHALL also be present', expression: code.empty() or system.exists()}
+- {key: dis-1, severity: error, human: 'There SHALL be a code if there is a value
+    and it SHALL be an expression of length.  If system is present, it SHALL be UCUM.',
+  expression: (code or value.empty()) and (system.empty() or system = %ucum)}
+- {key: qty-3, severity: error, human: 'If a code for the unit is present, the system
+    SHALL also be present', expression: code.empty() or system.exists()}
+- {key: age-1, severity: error, human: 'There SHALL be a code if there is a value
+    and it SHALL be an expression of time.  If system is present, it SHALL be UCUM.  If
+    value is present, it SHALL be positive.', expression: (code or value.empty()) and (system.empty() or system = %ucum) and (value.empty() or value.toString().contains('.').not())}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ext-1, severity: error, human: 'Must have either extensions or value[x], not
+    both', expression: extension.exists() != value.exists()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: txt-3, severity: error, human: 'The narrative SHALL contain only the basic
+    html formatting attributes described in chapters 7-11 (except section 4 of chapter
+    9) and 15 of the HTML 4.0 standard, <a> elements (either name or href), images
+    and internally contained style attributes'}
+- {key: txt-1, severity: error, human: 'The narrative SHALL contain only the basic
+    html formatting elements described in chapters 7-11 (except section 4 of chapter
+    9) and 15 of the HTML 4.0 standard, <a> elements (either name or href), images
+    and internally contained style attributes'}
+- {key: txt-2, severity: error, human: The narrative SHALL have some non-whitespace content}
+- {key: txt-3, severity: error, human: 'The narrative SHALL contain only the basic
+    html formatting attributes described in chapters 7-11 (except section 4 of chapter
+    9) and 15 of the HTML 4.0 standard, <a> elements (either name or href), images
+    and internally contained style attributes'}
+- {key: txt-1, severity: error, human: 'The narrative SHALL contain only the basic
+    html formatting elements described in chapters 7-11 (except section 4 of chapter
+    9) and 15 of the HTML 4.0 standard, <a> elements (either name or href), images
+    and internally contained style attributes'}
+- {key: txt-2, severity: error, human: The narrative SHALL have some non-whitespace content}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: cpt-2, severity: error, human: A system is required if a value is provided.,
+  expression: value.empty() or system.exists()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: tim-9, severity: error, human: 'If there''s an offset, there must be a when',
+  expression: offset.empty() or when.exists()}
+- {key: tim-5, severity: error, human: period SHALL be a non-negative value, expression: period.exists() implies period >= 0}
+- {key: tim-6, severity: error, human: 'If there''s a periodMax, there must be a period',
+  expression: periodMax.empty() or period.exists()}
+- {key: tim-7, severity: error, human: 'If there''s a durationMax, there must be a
+    duration', expression: durationMax.empty() or duration.exists()}
+- {key: tim-8, severity: error, human: 'If there''s a countMax, there must be a count',
+  expression: countMax.empty() or count.exists()}
+- {key: tim-1, severity: error, human: 'if there''s a duration, there needs to be
+    duration units', expression: duration.empty() or durationUnit.exists()}
+- {key: tim-2, severity: error, human: 'if there''s a period, there needs to be period
+    units', expression: period.empty() or periodUnit.exists()}
+- {key: tim-3, severity: error, human: 'Either frequency or when can exist, not both',
+  expression: ((period or frequency) and when).not()}
+- {key: tim-4, severity: error, human: duration SHALL be a non-negative value, expression: duration.exists() implies duration >= 0}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: eld-2, severity: error, human: Min <= Max, expression: min.empty() or max.empty() or (max = '*') or (min <= max.toInteger())}
+- {key: eld-5, severity: error, human: 'if the element definition has a contentReference,
+    it cannot have type, defaultValue, fixed, pattern, example, minValue, maxValue,
+    maxLength, or binding', expression: contentReference.empty() or (type.empty() and defaultValue.empty() and fixed.empty() and pattern.empty() and example.empty() and minValue.empty() and maxValue.empty() and maxLength.empty() and binding.empty())}
+- {key: eld-7, severity: error, human: Pattern may only be specified if there is one type,
+  expression: pattern.empty() or (type.count() <= 1)}
+- {key: eld-6, severity: error, human: Fixed value may only be specified if there is one type,
+  expression: fixed.empty() or (type.count()  <= 1)}
+- {key: eld-11, severity: error, human: 'Binding can only be present for coded elements,
+    string, and uri', expression: binding.empty() or type.code.empty() or type.select((code = 'code') or (code = 'Coding') or (code='CodeableConcept') or (code = 'Quantity') or (code = 'Extension') or (code = 'string') or (code = 'uri')).exists()}
+- {key: eld-8, severity: error, human: Pattern and value are mutually exclusive, expression: pattern.empty() or fixed.empty()}
+- {key: eld-14, severity: error, human: Constraints must be unique by key, expression: constraint.select(key).isDistinct()}
+- {key: eld-13, severity: error, human: Types must be unique by the combination of code and profile,
+  expression: type.select(code&profile).isDistinct()}
+- {key: eld-15, severity: error, human: default value and meaningWhenMissing are mutually exclusive,
+  expression: defaultValue.empty() or meaningWhenMissing.empty()}
+- {key: eld-1, severity: error, human: 'If there are no discriminators, there must
+    be a definition', expression: discriminator.exists() or description.exists()}
+- {key: eld-3, severity: error, human: Max SHALL be a number or "*", expression: empty() or ($this = '*') or (toInteger() >= 0)}
+- {key: eld-3, severity: error, human: Max SHALL be a number or "*", expression: empty() or ($this = '*') or (toInteger() >= 0)}
+- {key: eld-4, severity: error, human: Aggregation may only be specified if one of the allowed types for the element is a resource,
+  expression: aggregation.empty() or (code = 'Reference')}
+- {key: eld-10, severity: error, human: provide either a reference or a description (or both),
+  expression: valueSet.exists() or description.exists()}
+- {key: eld-12, severity: error, human: 'URI SHALL start with http:// or https://
+    urn:', expression: 'startsWith(''http:'') or startsWith(''https'') or startsWith(''urn:'')'}
+- {key: eld-12, severity: error, human: 'URI SHALL start with http:// or https://
+    urn:', expression: 'startsWith(''http:'') or startsWith(''https'') or startsWith(''urn:'')'}
+- {key: eld-12, severity: error, human: 'URI SHALL start with http:// or https://
+    urn:', expression: 'startsWith(''http:'') or startsWith(''https'') or startsWith(''urn:'')'}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: ele-1, severity: error, human: All FHIR elements must have a @value or children,
+  expression: children().count() > id.count()}
+- {key: qty-3, severity: error, human: 'If a code for the unit is present, the system
+    SHALL also be present', expression: code.empty() or system.exists()}
+- {key: sqty-1, severity: error, human: The comparator is not used on a SimpleQuantity,
+  expression: comparator.empty()}
