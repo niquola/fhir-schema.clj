@@ -28,6 +28,7 @@
     (if (re-matches #"^[a-z].*$" tp)
       [e (merge e {:$$path (conj (into [] (butlast (:$$path e))) (keyword (str "_" (name (last (:$$path e))))))
                    :type [{:code "PrimitiveExtension"}]
+                   :binding nil
                    :min 0})]
       [e])
     [e]))
@@ -72,6 +73,14 @@
                                             :minProperties 1
                                             :additionalProperties false
                                             :properties {:extension {:$ref "#/definitions/ArrayOfExtensions"}}})
+
+      (= "Reference" tp) (merge-with merge x {:type  "object"
+                                              :minProperties 1
+                                              :additionalProperties false
+                                              :$deffered {:type "Reference"}
+                                              :required [:reference]
+                                              :properties {:reference {:type "string"}
+                                                           :display {:type "string"}}})
       (= "object" tp) (merge x {:type  "object"
                                 :minProperties 1
                                 :additionalProperties false})
@@ -91,6 +100,7 @@
   (cond
     (= 1 (count (:$$path x))) (merge-with merge x {:properties {:resourceType {:type "string" :constant (name (get-in x [:$$path 0]))}}})
     (= (:$ref x) "#/definitions/Resource") {:type "object" :typeProperty "resourceType"}
+    (:$$binding x) (assoc x :$deffered (assoc (select-keys (:$$binding x) [:strength :valueSetReference]) :type "ValueSet"))
     :else x))
 
 (defn resolve-content-ref [ref sch]

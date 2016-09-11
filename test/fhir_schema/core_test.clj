@@ -40,7 +40,7 @@
         (is (empty? (:errors (subj/validate resource)))
             (.getName f))))))
 
-(subj/validate {:resourceType "Patient" :name [{:given ["ups"]}]})
+(subj/validate {:resourceType "Patient" :name [{}] :birthDate "1980"})
 
 (deftest invalid-test
   (doseq [i invalid]
