@@ -18,6 +18,9 @@
 (defn to-yaml [m]
   (yaml/generate-string m))
 
+(defn save-yalm [m pth]
+  (spit pth (to-yaml m)))
+
 (defn from-yaml [s]
   (yaml/parse-string s))
 
@@ -35,3 +38,4 @@
 
 (defn normalize-string [s]
   (cs/replace s #"\s" ""))
+
