@@ -4,8 +4,8 @@
             [clojure.java.io :as io]
             [clojure.walk :as walk]))
 
-(def parse (antlr/parser
-            (.getPath (io/resource "grammars/fpath.g4"))))
+;; (def parse (antlr/parser
+;;             (.getPath (io/resource "grammars/fpath.g4"))))
 
 ;; (defn clear [pt]
 ;;   (walk/postwalk (fn [xs]
