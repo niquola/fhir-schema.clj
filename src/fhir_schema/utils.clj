@@ -4,6 +4,7 @@
    [clojure.set :as cset]
    [clojure.java.io :as io]
    [cheshire.core :as json]
+   [clojure.pprint :as pp]
    [clj-yaml.core :as yaml]
    [clojure.string :as str]))
 
@@ -21,6 +22,9 @@
 
 (defn save-yalm [m pth]
   (spit pth (to-yaml m)))
+
+(defn save-edn [m pth]
+  (spit pth (with-out-str (pp/pprint m))))
 
 (defn from-yaml [s]
   (yaml/parse-string s))

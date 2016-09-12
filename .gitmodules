@@ -1,6 +1,3 @@
 [submodule "json-schema.clj"]
 	path = json-schema.clj
 	url = https://github.com/niquola/json-schema.clj
-[submodule "resources/fluentpath"]
-	path = resources/fluentpath
-	url = https://github.com/FHIR/fluentpath

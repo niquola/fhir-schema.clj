@@ -5,7 +5,17 @@
             [clojure.walk :as walk]))
 
 (def parse (antlr/parser
-             (.getPath (io/resource "grammars/fluentpath.g4"))))
+            (.getPath (io/resource "grammars/fpath.g4"))))
+
+;; (defn clear [pt]
+;;   (walk/postwalk (fn [xs]
+;;                    (if (seq? xs)
+;;                      (remove (fn [x] (= "." x)) xs)
+;;                      xs)
+;;                    ) pt))
+
+;; (u/save-edn (clear (parse "contact.where(system = z).name.empty()"))
+;;              "/tmp/parse.yml")
 
 ;; (def samples (u/read-yaml "constraints.yml"))
 
