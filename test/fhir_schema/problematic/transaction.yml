@@ -1,0 +1,48 @@
+resourceType: Bundle
+id: bundle-transaction
+type: transaction
+entry:
+- resource:
+    resourceType: Patient
+    text: {status: generated, div: '<div xmlns="http://www.w3.org/1999/xhtml">Some
+        narrative</div>'}
+    active: true
+    name:
+    - use: official
+      family: Chalmers
+      given: [Peter, James]
+    id: new-patient
+    gender: male
+    birthDate: '1974-12-25'
+  request: {method: PUT, url: /Patient/new-patient}
+- resource:
+    resourceType: Practitioner
+    id: dradam
+    text: {status: generated, div: "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n\
+        \      <p>Dr Adam Careful is a Referring Practitioner for Acme Hospital from\
+        \ 1-Jan 2012 to 31-Mar\n        2012</p>\n    </div>"}
+    identifier:
+    - {system: 'http://www.acme.org/practitioners', value: '23'}
+    active: true
+    name:
+    - family: [Careful]
+      given: [Adam]
+      prefix: [Dr]
+    qualification:
+    - identifier:
+      - {system: 'http://example.org/UniversityIdentifier', value: '12345'}
+      code: {text: Bachelor of Science}
+      period: {start: '1995'}
+      issuer: {display: Example University}
+  request: {method: PUT, url: /Practitioner/dradam}
+- resource:
+    resourceType: Encounter
+    id: new-encounter
+    text: {status: generated, div: '<div xmlns="http://www.w3.org/1999/xhtml">Encounter
+        with patient</div>'}
+    status: in-progress
+    class: inpatient
+    patient: {reference: Patient/new-patient}
+    participant:
+    - individual: {reference: Practitioner/dradam}
+  request: {method: PUT, url: /Encounter/new-encounter}

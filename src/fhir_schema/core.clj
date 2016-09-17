@@ -51,6 +51,10 @@
 
 (comment
   (schema/validate schema {:id "x" :resourceType "Patient" :name [{}]})
+
+  (schema/validate schema {:resourceType "Bundle"
+                           :entry [{:resource {:resourceType "Patient" :name "ups"}}]})
+
   (u/save-yalm schema "/tmp/schema.yml" )
 
   (u/save-yalm (->> elements

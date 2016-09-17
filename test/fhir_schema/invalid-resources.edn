@@ -12,4 +12,11 @@
 
  {:desc "No empty objects"
   :resource {:resourceType "Patient" :name [{}]}
-  :error-paths [[:name 0]]}]
+  :error-paths [[:name 0]]}
+
+ {:desc "bundle validation"
+  :resource {:resourceType "Bundle"
+             :entry [{:resource {:resourceType "Patient" :name "ups"}}]}
+  :error-paths [[:entry 0 :resource :name]]}
+
+ ]
