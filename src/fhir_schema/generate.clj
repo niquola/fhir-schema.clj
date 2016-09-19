@@ -33,9 +33,8 @@
                 :minProperties 1
                 :additionalProperties false
                 :$deffered {:type "Reference"}
-                :required [:reference]
                 :properties {:reference {:type "string"}
-                             :display {:type "string"}}}
+                             :display   {:type "string"}}}
 
    "object"   {:type  "object"
                :minProperties 1

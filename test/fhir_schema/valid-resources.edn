@@ -1,2 +1,5 @@
 [{:resourceType "Patient"
-  :name [{:given ["Nikolai"] :family ["Ryzhikov"]}]}]
+  :name [{:given ["Nikolai"] :family ["Ryzhikov"]}]}
+
+ {:resourceType "Patient"
+  :managingOrganization {:display "Organization"}}]
