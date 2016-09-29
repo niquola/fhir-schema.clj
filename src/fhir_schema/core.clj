@@ -46,10 +46,13 @@
 
 (def schema (gen/generate elements))
 
+
 (defn validate [res]
   (schema/validate schema res))
 
 (comment
+
+
   (schema/validate schema {:id "x" :resourceType "Patient" :name [{}]})
 
   (schema/validate schema {:resourceType "Bundle"
