@@ -8,8 +8,11 @@
                  [json-schema "0.1.0-RC2"]
                  [clj-yaml "0.4.0"]
                  [clj-antlr "0.2.3"]
+                 [honeysql "0.7.0"]
                  [cheshire "5.6.3"]]
   :profiles
   {:dev {:source-paths ["src"]
          :resource-paths ["resources" "test"]
-         :dependencies [[me.raynes/fs "1.4.6"]]}})
+         :dependencies [[me.raynes/fs "1.4.6"]
+                        [org.clojure/java.jdbc "0.5.0"]
+                        [org.postgresql/postgresql "9.4.1208.jre7"]]}})
