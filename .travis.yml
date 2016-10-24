@@ -1,4 +1,5 @@
 language: clojure
+sudo: required
 addons:
   postgresql: "9.5"
 lein: lein2
