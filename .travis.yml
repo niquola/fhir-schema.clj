@@ -5,8 +5,8 @@ lein: lein2
 jdk:
   - oraclejdk8
 before_script:
-  - psql -c "CREATE USER test WITH PASSWORD 'test'"
-  - psql -c 'ALTER ROLE test WITH SUPERUSER'
-  - psql -c 'CREATE DATABASE test_db;' -U postgres
+  - sudo -u postgres psql -c "CREATE USER test WITH PASSWORD 'test'"
+  - sudo -u postgres sql -c 'ALTER ROLE test WITH SUPERUSER'
+  - sudo -u postgres psql -c 'CREATE DATABASE test_db;' -U postgres
 script: env DATABASE_URL="jdbc:postgresql://localhost:5432/test_db?user=test&password=test&stringtype=unspecified" lein2 do clean, javac, test
 
