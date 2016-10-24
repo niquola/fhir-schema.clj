@@ -39,7 +39,8 @@
         (is (empty? (:errors (subj/validate resource)))
             (.getName f))))))
 
-;; (subj/validate {:resourceType "Patient" :name [{}] :birthDate "1980"})
+(subj/validate {:resourceType "Patient" :name [{}] :birthDate "1980"})
+
 ;; (subj/validate
 ;;  (read-sample (io/file "/home/nicola/aidbox/embed/fhir-schema.clj/test/fhir_schema/problematic/transaction.yml")))
 
