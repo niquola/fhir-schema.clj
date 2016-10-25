@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]))
 
 (defn init-sql []
-  "
+"
 CREATE TABLE resource (
   id text,
   version_id text,
@@ -23,7 +23,7 @@ CREATE TABLE resource_history (
 ")
 
 (defn deinit-sql []
-  "
+"
 DROP TABLE IF EXISTS resource CASCADE;
 DROP TABLE IF EXISTS resource_history CASCADE;
 ")
