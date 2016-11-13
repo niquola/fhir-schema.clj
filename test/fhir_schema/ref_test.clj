@@ -8,7 +8,7 @@
 (def test-set
   [{:resource {:resourceType "Patient"
                :gender "male"}
-    :deffereds #{{:value "male",
+    :deferreds #{{:value "male",
                   :strength "required",
                   :valueSetReference {:reference "http://hl7.org/fhir/ValueSet/administrative-gender"}
                   :type "ValueSet"
@@ -17,7 +17,7 @@
                :episodeOfCare [{:reference "EpisodeOfCare/2"}
                                {:reference "EpisodeOfCare/3"}]
                :patient {:reference "Patient/1"}}
-    :deffereds #{{:value {:reference "Patient/1"}
+    :deferreds #{{:value {:reference "Patient/1"}
                   :type  "Reference"
                   :path  [:patient]}
                  {:value {:reference "EpisodeOfCare/2"}
@@ -31,4 +31,4 @@
   (doseq [t test-set]
     (let [res (subj/validate (:resource t))]
       (is (empty? (:errors res)))
-      (is (= (:deffereds t) (:deffereds res))))))
+      (is (= (:deferreds t) (:deferreds res))))))

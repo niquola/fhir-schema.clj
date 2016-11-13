@@ -32,7 +32,7 @@
    "Reference" {:type  "object"
                 :minProperties 1
                 :additionalProperties false
-                :$deffered {:type "Reference"}
+                :$deferred {:type "Reference"}
                 :properties {:reference {:type "string"}
                              :display   {:type "string"}}}
 
@@ -74,7 +74,7 @@
 
     ;; valueset binding
     (:$$binding x)
-    (assoc x :$deffered (-> (select-keys (:$$binding x) [:strength :valueSetReference])
+    (assoc x :$deferred (-> (select-keys (:$$binding x) [:strength :valueSetReference])
                             (assoc  :type "ValueSet")))
 
     :else x))
